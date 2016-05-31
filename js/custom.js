@@ -3,22 +3,23 @@ $(document).ready(function(){
 		console.log("submit clicked");
 
 
-        var aData = new Object();
+        // var aData = new Object();
 
-        $("input").each(function(){
-            //Waarschijnlijk niet handig om uit te gaan van ID op html elementen
-           aData[$(this).attr("id")] = $(this).val();
-        });
+        // $("input").each(function(){
+        //    aData[$(this).data("id") = $(this).val();
+        // });
+        var sUsername = "tralalalal";
+        var sPassword = "tralalalal";
 
-        console.log(aData);
+        // console.log(aData);
 
-		var sUsername = aData['username'];
-		var sPassword = aData['password'];
+		// var sUsername = aData['username'];
+		// var sPassword = aData['password'];
 
 
         if(sUsername != '' && sPassword != ''){
 
-            $.post("index.php", aData,
+            $.get("http://87.253.157.240/getmatches", sPassword,
                 function(returnData){
                     console.log(returnData['password_matches']);
                     if(returnData['password_matches']){
