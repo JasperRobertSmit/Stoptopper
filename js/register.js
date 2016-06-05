@@ -14,12 +14,14 @@ $(document).ready(function () {
                 aData[$(this).data("fieldname")] = $(this).val();
             });
 
+            console.log("aData:" + aData);
 
+            sendInfo("http://87.253.157.240/register", aData);
 
-            $.get("http://87.253.157.240/getteams", aData,
-                function (returnData) {
-                    console.log("TeamId: " + returnData[0]['TeamId']);
-                }, "json");
+            //$.post("http://87.253.157.240/register", aData,
+            //    function (returnData) {
+            //        console.log("Success: " + returnData['Success']);
+            //    }, "json");
 
         }
     });

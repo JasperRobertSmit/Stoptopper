@@ -12,6 +12,31 @@ function is_valid() {
     return bValidationResult;
 }
 
+function updateFields(oResult){
+
+    if(!oResult['Success']){
+        //Er is een fout
+        if(oResult['Message'] == "Username already exists!"){
+            $("#username").addClass('validation-failed');
+            $("#username").parent().find('.validation-message').text(oResult['Message']);
+        }
+
+        if(oResult['Message'] == "Invalid credentials!"){
+            $("#username, #password").addClass('validation-failed');
+            $("#username, #password").parent().find('.validation-message').text(oResult['Message']);
+        }
+    }
+}
+
+
+
+function sendInfo(url, aData){
+    $.post(url, aData, function(returnData){
+        updateFields(returnData);
+    }, "json");
+}
+
+
 $(document).ready(function(){
     $("input").blur(function(){
         if($(this).hasClass('validation-failed') && $(this).val() != ''){

@@ -15,13 +15,20 @@ $(document).ready(function(){
                 aData[$(this).data("fieldname")] = $(this).val();
             });
 
+            var oResult = sendInfo("http://87.253.157.240/login", aData);
 
-
-            $.get("http://87.253.157.240/getteams", aData,
-                function (returnData) {
-                    console.log("TeamId: " + returnData[0]['TeamId']);
-                }, "json");
-
+            console.log("oResult" + oResult);
         }
     });
+
+
+    function myCallback(result){
+
+    }
+
+    function foo(callback){
+        $.post("asdsd", aData, function(data){
+            myCallback(data);
+        })
+    }
 });
