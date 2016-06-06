@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit http://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <_PublishTargetUrl>C:\Deploy\NancyAspNetHost</_PublishTargetUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="bin/EntityFramework.dll">
+      <publishTime>06/05/2016 16:20:10</publishTime>
+    </File>
+    <File Include="bin/EntityFramework.SqlServer.dll">
+      <publishTime>06/05/2016 16:20:10</publishTime>
+    </File>
+    <File Include="bin/mscorlib.dll">
+      <publishTime>04/23/2016 02:33:57</publishTime>
+    </File>
+    <File Include="bin/Nancy.dll">
+      <publishTime>05/30/2016 10:02:25</publishTime>
+    </File>
+    <File Include="bin/Nancy.Hosting.Aspnet.dll">
+      <publishTime>05/30/2016 10:29:24</publishTime>
+    </File>
+    <File Include="bin/NancyAspNetHost.dll">
+      <publishTime>06/05/2016 17:49:17</publishTime>
+    </File>
+    <File Include="bin/Newtonsoft.Json.dll">
+      <publishTime>03/14/2016 21:29:42</publishTime>
+    </File>
+    <File Include="bin/normidna.nlp">
+      <publishTime>10/30/2015 08:19:56</publishTime>
+    </File>
+    <File Include="bin/normnfc.nlp">
+      <publishTime>10/30/2015 08:19:56</publishTime>
+    </File>
+    <File Include="bin/normnfd.nlp">
+      <publishTime>10/30/2015 08:19:56</publishTime>
+    </File>
+    <File Include="bin/normnfkc.nlp">
+      <publishTime>10/30/2015 08:19:56</publishTime>
+    </File>
+    <File Include="bin/normnfkd.nlp">
+      <publishTime>10/30/2015 08:19:56</publishTime>
+    </File>
+    <File Include="Libraries/Newtonsoft.Json.dll">
+      <publishTime>03/14/2016 21:29:42</publishTime>
+    </File>
+    <File Include="Model1.edmx.diagram">
+      <publishTime>06/05/2016 17:32:04</publishTime>
+    </File>
+    <File Include="packages.config">
+      <publishTime>06/05/2016 16:20:12</publishTime>
+    </File>
+    <File Include="SQL Patches/001_Initial.sql">
+      <publishTime>06/05/2016 17:31:43</publishTime>
+    </File>
+    <File Include="Web.config">
+      <publishTime>06/05/2016 17:49:17</publishTime>
+    </File>
+  </ItemGroup>
+</Project>

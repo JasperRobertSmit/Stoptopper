@@ -1,0 +1,15 @@
+C:\Projects\VS2010\NancyAspNetHost\NancyAspNetHost\bin\NancyAspNetHost.dll.config
+C:\Projects\VS2010\NancyAspNetHost\NancyAspNetHost\bin\NancyAspNetHost.dll
+C:\Projects\VS2010\NancyAspNetHost\NancyAspNetHost\bin\NancyAspNetHost.pdb
+C:\Projects\VS2010\NancyAspNetHost\NancyAspNetHost\bin\Nancy.dll
+C:\Projects\VS2010\NancyAspNetHost\NancyAspNetHost\bin\Nancy.Hosting.Aspnet.dll
+C:\Projects\VS2010\NancyAspNetHost\NancyAspNetHost\bin\Newtonsoft.Json.dll
+C:\Projects\VS2010\NancyAspNetHost\NancyAspNetHost\bin\Nancy.xml
+C:\Projects\VS2010\NancyAspNetHost\NancyAspNetHost\bin\Nancy.Hosting.Aspnet.xml
+C:\Projects\VS2010\NancyAspNetHost\NancyAspNetHost\obj\Release\NancyAspNetHost.dll
+C:\Projects\VS2010\NancyAspNetHost\NancyAspNetHost\obj\Release\NancyAspNetHost.pdb
+C:\Projects\VS2010\NancyAspNetHost\NancyAspNetHost\obj\Release\NancyAspNetHost.csprojResolveAssemblyReference.cache
+C:\Projects\VS2010\NancyAspNetHost\NancyAspNetHost\bin\EntityFramework.dll
+C:\Projects\VS2010\NancyAspNetHost\NancyAspNetHost\bin\EntityFramework.SqlServer.dll
+C:\Projects\VS2010\NancyAspNetHost\NancyAspNetHost\bin\EntityFramework.xml
+C:\Projects\VS2010\NancyAspNetHost\NancyAspNetHost\bin\EntityFramework.SqlServer.xml
