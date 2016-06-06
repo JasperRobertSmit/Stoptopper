@@ -11,7 +11,7 @@ $(document).ready(function () {
             });
 
 
-            sendInfo("http://87.253.157.240/register", aData);
+            sendInfo("http://87.253.157.240/register", aData, "login.html", "Registratie succesvol, u wordt naar de login pagina gestuurd.");
 
         }
     });

@@ -12,7 +12,7 @@ function is_valid() {
     return bValidationResult;
 }
 
-function updateFields(oResult){
+function updateFields(oResult, redirectUrl, redirectMessage){
 
     if(!oResult['Success']){
         //Er is een fout
@@ -27,14 +27,30 @@ function updateFields(oResult){
             usernameAndPassword.addClass('validation-failed');
             usernameAndPassword.parent().find('.validation-message').text(oResult['Message']);
         }
+    }else{
+        if(redirectUrl != null){
+            console.log("Redirected: " + redirectUrl);
+
+
+            //Als er een redirect bericht is toon het
+            if(redirectMessage != null){
+                $(".msg").text(redirectMessage);    
+            }
+            
+
+            setTimeout(function(){
+                $(location).attr('href', redirectUrl);
+            }, 4000);
+            
+        }    
     }
 }
 
 
 
-function sendInfo(url, aData){
+function sendInfo(url, aData, redirectUrl, redirectMessage){
     $.post(url, aData, function(returnData){
-        updateFields(returnData);
+        updateFields(returnData, redirectUrl, redirectMessage);
     }, "json");
 }
 

@@ -11,7 +11,7 @@ $(document).ready(function(){
                 aData[$(this).data("fieldname")] = $(this).val();
             });
 
-            sendInfo("http://87.253.157.240/login", aData);
+            sendInfo("http://87.253.157.240/login", aData, "succes.html", "Login succesvol u wordt geredirect");
 
         }
     });
