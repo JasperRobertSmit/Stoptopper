@@ -16,18 +16,12 @@ function updateFields(oResult, redirectUrl, redirectMessage){
 
     if(!oResult['Success']){
         //Er is een fout
-        if(oResult['field'] == "Username already exists!"){
-            var username = $("#username");
-            username.addClass('validation-failed');
-            username.parent().find('.validation-message').text(oResult['Message']);
-        }
+        if(oResult['ErrorField'] != null){
+            var errorfield = '#' + oResult['ErrorField'];
+            errorfield = errorfield.toLowerCase();
 
-        if(oResult['ERRORFIELD'] != null){
-            var errorfield = '#' + oResult['ERRORFIELD'];
-            console.log(errorfield);
-            
-            errorfield.addClass('validation-failed');
-            errorfield.parent().find('.validation-message').text(oResult['Message']);
+            $(errorfield).addClass('validation-failed');
+            $(errorfield).parent().find('.validation-message').text(oResult['Message']);
         }
     }else{
         if(redirectUrl != null){
@@ -56,6 +50,16 @@ function sendInfo(url, aData, redirectUrl, redirectMessage){
     }, "json");
 }
 
+function validateUsername(aUsername){
+
+    $.post("http://87.253.157.240/ValidateUsername", aUsername, function(response){
+        if(!response['Success']){
+            var oUsername = $("#username");
+            oUsername.addClass('validation-failed');
+            oUsername.parent().find('.validation-message').text(response['Message']);
+        }
+    }, "json");
+}
 
 $(document).ready(function(){
     $("input").blur(function(){
@@ -64,5 +68,7 @@ $(document).ready(function(){
             $(this).parent().find('.validation-message').text('');
         }
     });
+
+
 });
 

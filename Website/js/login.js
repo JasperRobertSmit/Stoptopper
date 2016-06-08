@@ -11,6 +11,11 @@ $(document).ready(function(){
                 aData[$(this).data("fieldname")] = $(this).val();
             });
 
+            var oUsername = new Object();
+            oUsername['username'] = aData['username'];
+            validateUsername(oUsername);
+
+
             sendInfo("http://87.253.157.240/login", aData, "succes.html", "Login succesvol u wordt geredirect");
 
         }
