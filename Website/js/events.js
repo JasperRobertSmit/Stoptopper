@@ -41,7 +41,7 @@ function createSpinnerRow(){
 }
 
 
-/**EVENT LIST DISPLAY LOGIC*/
+/**EVENT DISPLAY LOGIC*/
 
 function createEventHeader(){
   return "<tr>"+
@@ -77,8 +77,6 @@ function showEventList(){
   changeTableBody(eventsHtml);
   $('.modal-trigger').leanModal();
 }
-
-/** EVENT DISPLAY LOGIC */
 
 /** ENDPOINT CREATION */
 
