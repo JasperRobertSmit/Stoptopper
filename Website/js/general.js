@@ -30,15 +30,15 @@ function updateFields(oResult, redirectUrl, redirectMessage){
 
             //Als er een redirect bericht is toon het
             if(redirectMessage != null){
-                $(".msg").text(redirectMessage);    
+                $(".msg").text(redirectMessage);
             }
-            
+
 
             setTimeout(function(){
                 $(location).attr('href', redirectUrl);
             }, 4000);
-            
-        }    
+
+        }
     }
 }
 
@@ -71,4 +71,3 @@ $(document).ready(function(){
 
 
 });
-
