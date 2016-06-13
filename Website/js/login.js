@@ -1,5 +1,14 @@
 $(document).ready(function(){
 
+
+    $(document).keypress(function(e){
+        if((e.which || e.keyCode) == 13){
+            console.log("Enter pressed");
+            $("#login").click();
+            //return false;
+        }
+    });
+
     $("#login").click(function () {
         console.log("login clicked");
 
@@ -16,7 +25,7 @@ $(document).ready(function(){
             validateUsername(oUsername);
 
 
-            sendInfo("http://87.253.157.240/login", aData, "succes.html", "Login succesvol u wordt geredirect");
+            sendInfo("http://87.253.157.240/login", aData, "success.html", "Login succesvol u wordt geredirect");
 
         }
     });

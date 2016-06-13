@@ -1,8 +1,15 @@
 $(document).ready(function () {
 
-
+    $(document).keypress(function(e){
+        if((e.which || e.keyCode) == 13){
+            console.log("Enter pressed");
+            $("#submit").click();
+            //return false;
+        }
+    });
 
     $("#submit").click(function () {
+
         console.log("submit clicked");
 
         if (is_valid()) {
