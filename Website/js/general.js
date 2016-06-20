@@ -12,29 +12,29 @@ function is_valid() {
     return bValidationResult;
 }
 
-function updateFields(oResult, redirectUrl, redirectMessage){
+function updateFields(oResult, redirectUrl, redirectMessage) {
 
-    if(!oResult['Success']){
+    if (!oResult['Success']) {
         //Er is een fout
-        if(oResult['ErrorField'] != null){
+        if (oResult['ErrorField'] != null) {
             var errorfield = '#' + oResult['ErrorField'];
             errorfield = errorfield.toLowerCase();
 
             $(errorfield).addClass('validation-failed');
             $(errorfield).parent().find('.validation-message').text(oResult['Message']);
         }
-    }else{
-        if(redirectUrl != null){
+    } else {
+        if (redirectUrl != null) {
             console.log("Redirected: " + redirectUrl);
 
 
             //Als er een redirect bericht is toon het
-            if(redirectMessage != null){
+            if (redirectMessage != null) {
                 $(".msg").text(redirectMessage);
             }
 
 
-            setTimeout(function(){
+            setTimeout(function () {
                 $(location).attr('href', redirectUrl);
             }, 4000);
 
@@ -43,17 +43,16 @@ function updateFields(oResult, redirectUrl, redirectMessage){
 }
 
 
-
-function sendInfo(url, aData, redirectUrl, redirectMessage){
-    $.post(url, aData, function(returnData){
+function sendInfo(url, aData, redirectUrl, redirectMessage) {
+    $.post(url, aData, function (returnData) {
         updateFields(returnData, redirectUrl, redirectMessage);
     }, "json");
 }
 
-function validateUsername(aUsername){
+function validateUsername(aUsername) {
 
-    $.post("http://87.253.157.240/ValidateUsername", aUsername, function(response){
-        if(!response['Success']){
+    $.post("http://87.253.157.240/ValidateUsername", aUsername, function (response) {
+        if (!response['Success']) {
             var oUsername = $("#username");
             oUsername.addClass('validation-failed');
             oUsername.parent().find('.validation-message').text(response['Message']);
@@ -61,9 +60,9 @@ function validateUsername(aUsername){
     }, "json");
 }
 
-$(document).ready(function(){
-    $("input").blur(function(){
-        if($(this).hasClass('validation-failed') && $(this).val() != ''){
+$(document).ready(function () {
+    $("input").blur(function () {
+        if ($(this).hasClass('validation-failed') && $(this).val() != '') {
             $(this).removeClass('validation-failed');
             $(this).parent().find('.validation-message').text('');
         }

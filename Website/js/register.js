@@ -20,8 +20,11 @@ $(document).ready(function () {
                 aData[$(this).data("fieldname")] = $(this).val();
             });
 
+            aData['password'] = Sha256.hash(aData['password']);
 
-            sendInfo("http://87.253.157.240/register", aData, "login.html", "Registratie succesvol, u wordt naar de login pagina gestuurd.");
+
+            console.log(aData);
+            sendInfo("http://87.253.157.240/Register", aData, "login.html", "Registratie succesvol, u wordt naar de login pagina gestuurd.");
 
         }
     });
