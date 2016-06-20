@@ -26,9 +26,8 @@ public class MainActivity extends AppCompatActivity {
         btnHit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), MatchInfoActivity.class);
-                intent.putExtra(MATCH_INFO, "TST");
-                v.getContext().startActivity(intent);
+                Intent intent = new Intent(v.getContext(), QRActivity.class);
+                startActivity(intent);
             }
         });
     }
