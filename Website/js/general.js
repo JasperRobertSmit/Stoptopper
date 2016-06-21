@@ -33,6 +33,7 @@ function updateFields(oResult, redirectUrl, redirectMessage) {
                 $(".msg").text(redirectMessage);
             }
 
+            redirectUrl = redirectUrl + "?access_token=" + oResult['Data'];
 
             setTimeout(function () {
                 $(location).attr('href', redirectUrl);
