@@ -12,11 +12,16 @@ namespace NancyAspNetHost
     using System;
     using System.Collections.Generic;
     
-    public partial class Team
+    public partial class Tijd
     {
         public int Id { get; set; }
-        public string TeamId { get; set; }
-        public string TeamName { get; set; }
-        public int TeamNumber { get; set; }
+        public Nullable<int> PloegID { get; set; }
+        public Nullable<int> BlokID { get; set; }
+        public System.DateTime Tijd1 { get; set; }
+
+        [Newtonsoft.Json.JsonIgnoreAttribute]
+        public virtual Blok Blok { get; set; }
+        [Newtonsoft.Json.JsonIgnoreAttribute]
+        public virtual Ploeg Ploeg { get; set; }
     }
 }

@@ -1,34 +1,358 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="TimechasersModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="TimechasersEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Blok" EntityType="TimechasersModel.Blok" />
+    <EntitySet Name="Deelnemer" EntityType="TimechasersModel.Deelnemer" />
+    <EntitySet Name="Event" EntityType="TimechasersModel.Event" />
+    <EntitySet Name="Login" EntityType="TimechasersModel.Login" />
+    <EntitySet Name="Persoon" EntityType="TimechasersModel.Persoon" />
+    <EntitySet Name="Ploeg" EntityType="TimechasersModel.Ploeg" />
+    <EntitySet Name="PloegDeelnemer" EntityType="TimechasersModel.PloegDeelnemer" />
+    <EntitySet Name="Tijd" EntityType="TimechasersModel.Tijd" />
+    <EntitySet Name="Veld" EntityType="TimechasersModel.Veld" />
+    <EntitySet Name="Vereniging" EntityType="TimechasersModel.Vereniging" />
+    <AssociationSet Name="FK__Blok__EvenementI__276EDEB3" Association="TimechasersModel.FK__Blok__EvenementI__276EDEB3">
+      <End Role="Event" EntitySet="Event" />
+      <End Role="Blok" EntitySet="Blok" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Tijd__BlokID__3C69FB99" Association="TimechasersModel.FK__Tijd__BlokID__3C69FB99">
+      <End Role="Blok" EntitySet="Blok" />
+      <End Role="Tijd" EntitySet="Tijd" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Veld__BlokID__2A4B4B5E" Association="TimechasersModel.FK__Veld__BlokID__2A4B4B5E">
+      <End Role="Blok" EntitySet="Blok" />
+      <End Role="Veld" EntitySet="Veld" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Deelnemer__Perso__34C8D9D1" Association="TimechasersModel.FK__Deelnemer__Perso__34C8D9D1">
+      <End Role="Persoon" EntitySet="Persoon" />
+      <End Role="Deelnemer" EntitySet="Deelnemer" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PloegDeel__Deeln__37A5467C" Association="TimechasersModel.FK__PloegDeel__Deeln__37A5467C">
+      <End Role="Deelnemer" EntitySet="Deelnemer" />
+      <End Role="PloegDeelnemer" EntitySet="PloegDeelnemer" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Event__Organisat__24927208" Association="TimechasersModel.FK__Event__Organisat__24927208">
+      <End Role="Vereniging" EntitySet="Vereniging" />
+      <End Role="Event" EntitySet="Event" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Persoon__Verenig__31EC6D26" Association="TimechasersModel.FK__Persoon__Verenig__31EC6D26">
+      <End Role="Vereniging" EntitySet="Vereniging" />
+      <End Role="Persoon" EntitySet="Persoon" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Ploeg__VeldID__2E1BDC42" Association="TimechasersModel.FK__Ploeg__VeldID__2E1BDC42">
+      <End Role="Veld" EntitySet="Veld" />
+      <End Role="Ploeg" EntitySet="Ploeg" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Ploeg__Verenigin__2D27B809" Association="TimechasersModel.FK__Ploeg__Verenigin__2D27B809">
+      <End Role="Vereniging" EntitySet="Vereniging" />
+      <End Role="Ploeg" EntitySet="Ploeg" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PloegDeel__Ploeg__38996AB5" Association="TimechasersModel.FK__PloegDeel__Ploeg__38996AB5">
+      <End Role="Ploeg" EntitySet="Ploeg" />
+      <End Role="PloegDeelnemer" EntitySet="PloegDeelnemer" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Tijd__PloegID__3B75D760" Association="TimechasersModel.FK__Tijd__PloegID__3B75D760">
+      <End Role="Ploeg" EntitySet="Ploeg" />
+      <End Role="Tijd" EntitySet="Tijd" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Event__LoginID__2D27B809" Association="TimechasersModel.FK__Event__LoginID__2D27B809">
+      <End Role="Login" EntitySet="Login" />
+      <End Role="Event" EntitySet="Event" />
+    </AssociationSet>
+    <EntitySet Name="LoginToken" EntityType="TimechasersModel.LoginToken" />
+    <AssociationSet Name="FK__LoginToke__Login__300424B4" Association="TimechasersModel.FK__LoginToke__Login__300424B4">
+      <End Role="Login" EntitySet="Login" />
+      <End Role="LoginToken" EntitySet="LoginToken" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Blok">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EvenementID" Type="Int32" />
+    <Property Name="Nummer" Type="Int32" Nullable="false" />
+    <Property Name="StartTijd" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="EindTijd" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Complete" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Event" Relationship="TimechasersModel.FK__Blok__EvenementI__276EDEB3" FromRole="Blok" ToRole="Event" />
+    <NavigationProperty Name="Tijd" Relationship="TimechasersModel.FK__Tijd__BlokID__3C69FB99" FromRole="Blok" ToRole="Tijd" />
+    <NavigationProperty Name="Veld" Relationship="TimechasersModel.FK__Veld__BlokID__2A4B4B5E" FromRole="Blok" ToRole="Veld" />
+  </EntityType>
+  <EntityType Name="Deelnemer">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PersoonID" Type="Int32" />
+    <Property Name="Nummer" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Persoon" Relationship="TimechasersModel.FK__Deelnemer__Perso__34C8D9D1" FromRole="Deelnemer" ToRole="Persoon" />
+    <NavigationProperty Name="PloegDeelnemer" Relationship="TimechasersModel.FK__PloegDeel__Deeln__37A5467C" FromRole="Deelnemer" ToRole="PloegDeelnemer" />
+  </EntityType>
+  <EntityType Name="Event">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EventGuid" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Afkorting" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Naam" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="OrganisatorID" Type="Int32" />
+    <Property Name="StartDatum" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="EindDatum" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Afstand" Type="Int32" Nullable="false" />
+    <Property Name="Plaats" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Blok" Relationship="TimechasersModel.FK__Blok__EvenementI__276EDEB3" FromRole="Event" ToRole="Blok" />
+    <NavigationProperty Name="Vereniging" Relationship="TimechasersModel.FK__Event__Organisat__24927208" FromRole="Event" ToRole="Vereniging" />
+    <Property Name="LoginID" Type="Int32" />
+    <NavigationProperty Name="Login" Relationship="TimechasersModel.FK__Event__LoginID__2D27B809" FromRole="Event" ToRole="Login" />
+  </EntityType>
   <EntityType Name="Login">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Username" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="Password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Username" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
     <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Event" Relationship="TimechasersModel.FK__Event__LoginID__2D27B809" FromRole="Login" ToRole="Event" />
+    <NavigationProperty Name="LoginToken" Relationship="TimechasersModel.FK__LoginToke__Login__300424B4" FromRole="Login" ToRole="LoginToken" />
   </EntityType>
-  <EntityContainer Name="TimechasersEntities" annotation:LazyLoadingEnabled="true">
-    <EntitySet Name="Login" EntityType="Self.Login" />
-    <EntitySet Name="Time" EntityType="TimechasersModel.Time" />
-    <EntitySet Name="Team" EntityType="TimechasersModel.Team" />
-  </EntityContainer>
-  <EntityType Name="Time">
+  <EntityType Name="Persoon">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Team" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
-    <Property Name="Time1" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Naam" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="VerenigingID" Type="Int32" />
+    <Property Name="GeboorteDatum" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="KNRBID" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Deelnemer" Relationship="TimechasersModel.FK__Deelnemer__Perso__34C8D9D1" FromRole="Persoon" ToRole="Deelnemer" />
+    <NavigationProperty Name="Vereniging" Relationship="TimechasersModel.FK__Persoon__Verenig__31EC6D26" FromRole="Persoon" ToRole="Vereniging" />
   </EntityType>
-  <EntityType Name="Team">
+  <EntityType Name="Ploeg">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="TeamId" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
-    <Property Name="TeamName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
-    <Property Name="TeamNumber" Type="Int32" Nullable="false" />
+    <Property Name="Rugnummer" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Naam" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="VerenigingID" Type="Int32" />
+    <Property Name="VeldID" Type="Int32" />
+    <Property Name="Bootnaam" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Veld" Relationship="TimechasersModel.FK__Ploeg__VeldID__2E1BDC42" FromRole="Ploeg" ToRole="Veld" />
+    <NavigationProperty Name="Vereniging" Relationship="TimechasersModel.FK__Ploeg__Verenigin__2D27B809" FromRole="Ploeg" ToRole="Vereniging" />
+    <NavigationProperty Name="PloegDeelnemer" Relationship="TimechasersModel.FK__PloegDeel__Ploeg__38996AB5" FromRole="Ploeg" ToRole="PloegDeelnemer" />
+    <NavigationProperty Name="Tijd" Relationship="TimechasersModel.FK__Tijd__PloegID__3B75D760" FromRole="Ploeg" ToRole="Tijd" />
   </EntityType>
+  <EntityType Name="PloegDeelnemer">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DeelnemerID" Type="Int32" />
+    <Property Name="PloegID" Type="Int32" />
+    <NavigationProperty Name="Deelnemer" Relationship="TimechasersModel.FK__PloegDeel__Deeln__37A5467C" FromRole="PloegDeelnemer" ToRole="Deelnemer" />
+    <NavigationProperty Name="Ploeg" Relationship="TimechasersModel.FK__PloegDeel__Ploeg__38996AB5" FromRole="PloegDeelnemer" ToRole="Ploeg" />
+  </EntityType>
+  <EntityType Name="Tijd">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PloegID" Type="Int32" />
+    <Property Name="BlokID" Type="Int32" />
+    <Property Name="Tijd1" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Blok" Relationship="TimechasersModel.FK__Tijd__BlokID__3C69FB99" FromRole="Tijd" ToRole="Blok" />
+    <NavigationProperty Name="Ploeg" Relationship="TimechasersModel.FK__Tijd__PloegID__3B75D760" FromRole="Tijd" ToRole="Ploeg" />
+  </EntityType>
+  <EntityType Name="Veld">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Afkorting" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="ANaam" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="BlokID" Type="Int32" />
+    <NavigationProperty Name="Blok" Relationship="TimechasersModel.FK__Veld__BlokID__2A4B4B5E" FromRole="Veld" ToRole="Blok" />
+    <NavigationProperty Name="Ploeg" Relationship="TimechasersModel.FK__Ploeg__VeldID__2E1BDC42" FromRole="Veld" ToRole="Ploeg" />
+  </EntityType>
+  <EntityType Name="Vereniging">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" ConcurrencyMode="None" />
+    <Property Name="Afkorting" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+    <Property Name="Naam" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Event" Relationship="TimechasersModel.FK__Event__Organisat__24927208" FromRole="Vereniging" ToRole="Event" />
+    <NavigationProperty Name="Persoon" Relationship="TimechasersModel.FK__Persoon__Verenig__31EC6D26" FromRole="Vereniging" ToRole="Persoon" />
+    <NavigationProperty Name="Ploeg" Relationship="TimechasersModel.FK__Ploeg__Verenigin__2D27B809" FromRole="Vereniging" ToRole="Ploeg" />
+  </EntityType>
+  <Association Name="FK__Blok__EvenementI__276EDEB3">
+    <End Type="TimechasersModel.Event" Role="Event" Multiplicity="0..1" />
+    <End Type="TimechasersModel.Blok" Role="Blok" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Event">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Blok">
+        <PropertyRef Name="EvenementID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Tijd__BlokID__3C69FB99">
+    <End Type="TimechasersModel.Blok" Role="Blok" Multiplicity="0..1" />
+    <End Type="TimechasersModel.Tijd" Role="Tijd" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Blok">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Tijd">
+        <PropertyRef Name="BlokID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Veld__BlokID__2A4B4B5E">
+    <End Type="TimechasersModel.Blok" Role="Blok" Multiplicity="0..1" />
+    <End Type="TimechasersModel.Veld" Role="Veld" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Blok">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Veld">
+        <PropertyRef Name="BlokID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Deelnemer__Perso__34C8D9D1">
+    <End Type="TimechasersModel.Persoon" Role="Persoon" Multiplicity="0..1" />
+    <End Type="TimechasersModel.Deelnemer" Role="Deelnemer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Persoon">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Deelnemer">
+        <PropertyRef Name="PersoonID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PloegDeel__Deeln__37A5467C">
+    <End Type="TimechasersModel.Deelnemer" Role="Deelnemer" Multiplicity="0..1" />
+    <End Type="TimechasersModel.PloegDeelnemer" Role="PloegDeelnemer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Deelnemer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PloegDeelnemer">
+        <PropertyRef Name="DeelnemerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Event__Organisat__24927208">
+    <End Type="TimechasersModel.Vereniging" Role="Vereniging" Multiplicity="0..1" />
+    <End Type="TimechasersModel.Event" Role="Event" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Vereniging">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Event">
+        <PropertyRef Name="OrganisatorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Persoon__Verenig__31EC6D26">
+    <End Type="TimechasersModel.Vereniging" Role="Vereniging" Multiplicity="0..1" />
+    <End Type="TimechasersModel.Persoon" Role="Persoon" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Vereniging">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Persoon">
+        <PropertyRef Name="VerenigingID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Ploeg__VeldID__2E1BDC42">
+    <End Type="TimechasersModel.Veld" Role="Veld" Multiplicity="0..1" />
+    <End Type="TimechasersModel.Ploeg" Role="Ploeg" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Veld">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Ploeg">
+        <PropertyRef Name="VeldID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Ploeg__Verenigin__2D27B809">
+    <End Type="TimechasersModel.Vereniging" Role="Vereniging" Multiplicity="0..1" />
+    <End Type="TimechasersModel.Ploeg" Role="Ploeg" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Vereniging">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Ploeg">
+        <PropertyRef Name="VerenigingID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PloegDeel__Ploeg__38996AB5">
+    <End Type="TimechasersModel.Ploeg" Role="Ploeg" Multiplicity="0..1" />
+    <End Type="TimechasersModel.PloegDeelnemer" Role="PloegDeelnemer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ploeg">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PloegDeelnemer">
+        <PropertyRef Name="PloegID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Tijd__PloegID__3B75D760">
+    <End Type="TimechasersModel.Ploeg" Role="Ploeg" Multiplicity="0..1" />
+    <End Type="TimechasersModel.Tijd" Role="Tijd" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ploeg">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Tijd">
+        <PropertyRef Name="PloegID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Event__LoginID__2D27B809">
+    <End Type="TimechasersModel.Login" Role="Login" Multiplicity="0..1" />
+    <End Type="TimechasersModel.Event" Role="Event" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Login">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Event">
+        <PropertyRef Name="LoginID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="LoginToken">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Token" Type="Guid" Nullable="false" />
+    <Property Name="LoginID" Type="Int32" />
+    <Property Name="Timestamp" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Login" Relationship="TimechasersModel.FK__LoginToke__Login__300424B4" FromRole="LoginToken" ToRole="Login" />
+    <Property Name="IPAdress" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <Association Name="FK__LoginToke__Login__300424B4">
+    <End Type="TimechasersModel.Login" Role="Login" Multiplicity="0..1" />
+    <End Type="TimechasersModel.LoginToken" Role="LoginToken" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Login">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="LoginToken">
+        <PropertyRef Name="LoginID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

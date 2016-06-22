@@ -1,5 +1,39 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="TimechasersModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Blok">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EvenementID" Type="int" />
+    <Property Name="Nummer" Type="int" Nullable="false" />
+    <Property Name="StartTijd" Type="datetime" Nullable="false" />
+    <Property Name="EindTijd" Type="datetime" Nullable="false" />
+    <Property Name="Complete" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Deelnemer">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PersoonID" Type="int" />
+    <Property Name="Nummer" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Event">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EventGuid" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="Afkorting" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="Naam" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="OrganisatorID" Type="int" />
+    <Property Name="StartDatum" Type="datetime" Nullable="false" />
+    <Property Name="EindDatum" Type="datetime" Nullable="false" />
+    <Property Name="Afstand" Type="int" Nullable="false" />
+    <Property Name="Plaats" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="LoginID" Type="int" />
+  </EntityType>
   <EntityType Name="Login">
     <Key>
       <PropertyRef Name="Id" />
@@ -9,26 +43,290 @@
     <Property Name="Password" Type="varchar" MaxLength="255" Nullable="false" />
     <Property Name="Email" Type="varchar" MaxLength="255" />
   </EntityType>
-  <EntityType Name="Team">
+  <EntityType Name="LoginToken">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="TeamId" Type="varchar" MaxLength="255" Nullable="false" />
-    <Property Name="TeamName" Type="varchar" MaxLength="255" Nullable="false" />
-    <Property Name="TeamNumber" Type="int" Nullable="false" />
+    <Property Name="Token" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="IPAdress" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="LoginID" Type="int" />
+    <Property Name="Timestamp" Type="datetime" Nullable="false" />
   </EntityType>
-  <EntityType Name="Time">
+  <EntityType Name="Persoon">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Team" Type="varchar" MaxLength="255" Nullable="false" />
-    <Property Name="Time" Type="datetime" Nullable="false" />
+    <Property Name="Naam" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="VerenigingID" Type="int" />
+    <Property Name="GeboorteDatum" Type="datetime" Nullable="false" />
+    <Property Name="KNRBID" Type="varchar" MaxLength="255" />
   </EntityType>
+  <EntityType Name="Ploeg">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Rugnummer" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="Naam" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="VerenigingID" Type="int" />
+    <Property Name="VeldID" Type="int" />
+    <Property Name="Bootnaam" Type="varchar" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PloegDeelnemer">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DeelnemerID" Type="int" />
+    <Property Name="PloegID" Type="int" />
+  </EntityType>
+  <EntityType Name="Tijd">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PloegID" Type="int" />
+    <Property Name="BlokID" Type="int" />
+    <Property Name="Tijd" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Veld">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Afkorting" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="ANaam" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="BlokID" Type="int" />
+  </EntityType>
+  <EntityType Name="Vereniging">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Afkorting" Type="varchar" MaxLength="3" Nullable="false" />
+    <Property Name="Naam" Type="varchar" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__Blok__EvenementI__173876EA">
+    <End Role="Event" Type="Self.Event" Multiplicity="0..1" />
+    <End Role="Blok" Type="Self.Blok" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Event">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Blok">
+        <PropertyRef Name="EvenementID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Deelnemer__Perso__239E4DCF">
+    <End Role="Persoon" Type="Self.Persoon" Multiplicity="0..1" />
+    <End Role="Deelnemer" Type="Self.Deelnemer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Persoon">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Deelnemer">
+        <PropertyRef Name="PersoonID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Event__LoginID__2D27B809">
+    <End Role="Login" Type="Self.Login" Multiplicity="0..1" />
+    <End Role="Event" Type="Self.Event" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Login">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Event">
+        <PropertyRef Name="LoginID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Event__Organisat__145C0A3F">
+    <End Role="Vereniging" Type="Self.Vereniging" Multiplicity="0..1" />
+    <End Role="Event" Type="Self.Event" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Vereniging">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Event">
+        <PropertyRef Name="OrganisatorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__LoginToke__Login__32E0915F">
+    <End Role="Login" Type="Self.Login" Multiplicity="0..1" />
+    <End Role="LoginToken" Type="Self.LoginToken" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Login">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="LoginToken">
+        <PropertyRef Name="LoginID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Persoon__Verenig__20C1E124">
+    <End Role="Vereniging" Type="Self.Vereniging" Multiplicity="0..1" />
+    <End Role="Persoon" Type="Self.Persoon" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Vereniging">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Persoon">
+        <PropertyRef Name="VerenigingID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Ploeg__VeldID__1DE57479">
+    <End Role="Veld" Type="Self.Veld" Multiplicity="0..1" />
+    <End Role="Ploeg" Type="Self.Ploeg" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Veld">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Ploeg">
+        <PropertyRef Name="VeldID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Ploeg__Verenigin__1CF15040">
+    <End Role="Vereniging" Type="Self.Vereniging" Multiplicity="0..1" />
+    <End Role="Ploeg" Type="Self.Ploeg" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Vereniging">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Ploeg">
+        <PropertyRef Name="VerenigingID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PloegDeel__Deeln__267ABA7A">
+    <End Role="Deelnemer" Type="Self.Deelnemer" Multiplicity="0..1" />
+    <End Role="PloegDeelnemer" Type="Self.PloegDeelnemer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Deelnemer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PloegDeelnemer">
+        <PropertyRef Name="DeelnemerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PloegDeel__Ploeg__276EDEB3">
+    <End Role="Ploeg" Type="Self.Ploeg" Multiplicity="0..1" />
+    <End Role="PloegDeelnemer" Type="Self.PloegDeelnemer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ploeg">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PloegDeelnemer">
+        <PropertyRef Name="PloegID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Tijd__BlokID__2B3F6F97">
+    <End Role="Blok" Type="Self.Blok" Multiplicity="0..1" />
+    <End Role="Tijd" Type="Self.Tijd" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Blok">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Tijd">
+        <PropertyRef Name="BlokID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Tijd__PloegID__2A4B4B5E">
+    <End Role="Ploeg" Type="Self.Ploeg" Multiplicity="0..1" />
+    <End Role="Tijd" Type="Self.Tijd" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ploeg">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Tijd">
+        <PropertyRef Name="PloegID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Veld__BlokID__1A14E395">
+    <End Role="Blok" Type="Self.Blok" Multiplicity="0..1" />
+    <End Role="Veld" Type="Self.Veld" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Blok">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Veld">
+        <PropertyRef Name="BlokID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="TimechasersModelStoreContainer">
+    <EntitySet Name="Blok" EntityType="Self.Blok" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Deelnemer" EntityType="Self.Deelnemer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Event" EntityType="Self.Event" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Login" EntityType="Self.Login" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Team" EntityType="Self.Team" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Time" EntityType="Self.Time" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LoginToken" EntityType="Self.LoginToken" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Persoon" EntityType="Self.Persoon" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Ploeg" EntityType="Self.Ploeg" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PloegDeelnemer" EntityType="Self.PloegDeelnemer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tijd" EntityType="Self.Tijd" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Veld" EntityType="Self.Veld" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Vereniging" EntityType="Self.Vereniging" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Blok__EvenementI__173876EA" Association="Self.FK__Blok__EvenementI__173876EA">
+      <End Role="Event" EntitySet="Event" />
+      <End Role="Blok" EntitySet="Blok" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Deelnemer__Perso__239E4DCF" Association="Self.FK__Deelnemer__Perso__239E4DCF">
+      <End Role="Persoon" EntitySet="Persoon" />
+      <End Role="Deelnemer" EntitySet="Deelnemer" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Event__LoginID__2D27B809" Association="Self.FK__Event__LoginID__2D27B809">
+      <End Role="Login" EntitySet="Login" />
+      <End Role="Event" EntitySet="Event" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Event__Organisat__145C0A3F" Association="Self.FK__Event__Organisat__145C0A3F">
+      <End Role="Vereniging" EntitySet="Vereniging" />
+      <End Role="Event" EntitySet="Event" />
+    </AssociationSet>
+    <AssociationSet Name="FK__LoginToke__Login__32E0915F" Association="Self.FK__LoginToke__Login__32E0915F">
+      <End Role="Login" EntitySet="Login" />
+      <End Role="LoginToken" EntitySet="LoginToken" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Persoon__Verenig__20C1E124" Association="Self.FK__Persoon__Verenig__20C1E124">
+      <End Role="Vereniging" EntitySet="Vereniging" />
+      <End Role="Persoon" EntitySet="Persoon" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Ploeg__VeldID__1DE57479" Association="Self.FK__Ploeg__VeldID__1DE57479">
+      <End Role="Veld" EntitySet="Veld" />
+      <End Role="Ploeg" EntitySet="Ploeg" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Ploeg__Verenigin__1CF15040" Association="Self.FK__Ploeg__Verenigin__1CF15040">
+      <End Role="Vereniging" EntitySet="Vereniging" />
+      <End Role="Ploeg" EntitySet="Ploeg" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PloegDeel__Deeln__267ABA7A" Association="Self.FK__PloegDeel__Deeln__267ABA7A">
+      <End Role="Deelnemer" EntitySet="Deelnemer" />
+      <End Role="PloegDeelnemer" EntitySet="PloegDeelnemer" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PloegDeel__Ploeg__276EDEB3" Association="Self.FK__PloegDeel__Ploeg__276EDEB3">
+      <End Role="Ploeg" EntitySet="Ploeg" />
+      <End Role="PloegDeelnemer" EntitySet="PloegDeelnemer" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Tijd__BlokID__2B3F6F97" Association="Self.FK__Tijd__BlokID__2B3F6F97">
+      <End Role="Blok" EntitySet="Blok" />
+      <End Role="Tijd" EntitySet="Tijd" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Tijd__PloegID__2A4B4B5E" Association="Self.FK__Tijd__PloegID__2A4B4B5E">
+      <End Role="Ploeg" EntitySet="Ploeg" />
+      <End Role="Tijd" EntitySet="Tijd" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Veld__BlokID__1A14E395" Association="Self.FK__Veld__BlokID__1A14E395">
+      <End Role="Blok" EntitySet="Blok" />
+      <End Role="Veld" EntitySet="Veld" />
+    </AssociationSet>
   </EntityContainer>
 </Schema>

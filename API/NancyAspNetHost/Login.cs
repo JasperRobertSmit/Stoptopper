@@ -14,9 +14,23 @@ namespace NancyAspNetHost
     
     public partial class Login
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Login()
+        {
+            this.Event = new HashSet<Event>();
+            this.LoginToken = new HashSet<LoginToken>();
+        }
+    
         public int Id { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
         public string Email { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        [Newtonsoft.Json.JsonIgnoreAttribute]
+        public virtual ICollection<Event> Event { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        [Newtonsoft.Json.JsonIgnoreAttribute]
+        public virtual ICollection<LoginToken> LoginToken { get; set; }
     }
 }
