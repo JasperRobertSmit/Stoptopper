@@ -20,6 +20,10 @@ $(document).ready(function(){
                 aData[$(this).data("fieldname")] = $(this).val();
             });
 
+
+
+            aData['password'] = Sha256.hash(aData['password']);
+
             var oUsername = new Object();
             oUsername['username'] = aData['username'];
             validateUsername(oUsername);

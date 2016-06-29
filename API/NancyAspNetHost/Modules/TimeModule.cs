@@ -2,273 +2,247 @@
 using NancyAspNetHost.Entities;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 
 namespace NancyAspNetHost.Modules
 {
-    public class TimeModule : NancyModule
+    public partial class TimeModule : NancyModule
     {
         public TimeModule()
         {
             StaticConfiguration.DisableErrorTraces = false;
 
-            Team team1 = new Team();
-            team1.TeamId = Guid.NewGuid().ToString();
-            team1.TeamName = "Team 1";
-            team1.TeamNumber = 1;
-
-            Team team2 = new Team();
-            team2.TeamId = Guid.NewGuid().ToString();
-            team2.TeamName = "Team 2";
-            team2.TeamNumber = 2;
-
-            Match m = new Match();
-            m.MatchDate = DateTime.Now.AddDays(-1);
-            m.MatchId = Guid.NewGuid().ToString();
-            m.MatchName = "Speedrace 1";
-            m.MatchTeams = new List<Team>() { team1, team2 };
-
-            Match m2 = new Match();
-            m2.MatchDate = DateTime.Now;
-            m2.MatchId = Guid.NewGuid().ToString();
-            m2.MatchName = "Speedrace 2";
-            m2.MatchTeams = new List<Team>() { team1, team2 };
-
-            MatchResult mr = new MatchResult();
-            mr.MatchId = m.MatchId;
-            mr.MatchResultId = Guid.NewGuid().ToString();
-            mr.MatchTimes = new Dictionary<string, double>();
-            mr.MatchTimes.Add(team1.TeamId, 11.45);
-            mr.MatchTimes.Add(team2.TeamId, 12.45);
-
-            MatchResult mr2 = new MatchResult();
-            mr2.MatchId = m2.MatchId;
-            mr2.MatchResultId = Guid.NewGuid().ToString();
-            mr2.MatchTimes = new Dictionary<string, double>();
-            mr2.MatchTimes.Add(team1.TeamId, 41.45);
-            mr2.MatchTimes.Add(team2.TeamId, 42.45);
-
-            // register
+            /* USER */
             Post["/Register"] = (parameters) =>
             {
-                return Register(Request.Form);
+                return Register(Request.Form, Request.UserHostAddress);
             };
-
-            // login
+            Post["/ValidateUsername"] = (parameters) =>
+            {
+                return ValidateUsername(Request.Form);
+            };
             Post["/Login"] = (parameters) =>
             {
-                return Login(Request.Form);
+                return Login(Request.Form, Request.UserHostAddress);
             };
 
-            // time
-            Post["/SaveTime"] = (parameters) =>
+            /* SAVE */
+            Post["/blok"] = (parameters) =>
             {
-                return SaveTime(Request.Form);
+                return SaveBlok(Request.Form, Request.UserHostAddress);
             };
-
-            // save team
-            Post["/SaveTeam"] = (parameters) =>
+            Post["/deelnemer"] = (parameters) =>
             {
-                return SaveTeam(Request.Form);
+                return SaveDeelnemer(Request.Form, Request.UserHostAddress);
             };
-
-            // get team
-            Get["/GetTeams"] = (parameters) =>
+            Post["/event"] = (parameters) =>
             {
-                return GetTeams();
+                return SaveEvent(Request.Form, Request.UserHostAddress);
+            };
+            Post["/persoon"] = (parameters) =>
+            {
+                return SavePersoon(Request.Form, Request.UserHostAddress);
+            };
+            Post["/ploeg"] = (parameters) =>
+            {
+                return SavePloeg(Request.Form, Request.UserHostAddress);
+            };
+            Post["/SaveTijd"] = (parameters) =>
+            {
+                return SaveTijd(Request.Form, Request.UserHostAddress);
+            };
+            Post["/veld"] = (parameters) =>
+            {
+                return SaveVeld(Request.Form, Request.UserHostAddress);
+            };
+            Post["/vereniging"] = (parameters) =>
+            {
+                return SaveVereniging(Request.Form, Request.UserHostAddress);
             };
 
-            Get["/GetMatches"] = parameters => JsonConvert.SerializeObject(new List<Match>() { m, m2 });
-            Get["/GetMatchResults"] = parameters => JsonConvert.SerializeObject(new List<MatchResult>() { mr, mr2 });
+            /* GET */
+            Get["/blok/{id}/{token}"] = (parameters) =>
+            {
+                return GetObject<Blok>(parameters, Request.UserHostAddress);
+            };
+            Get["/deelnemer/{id}/{token}"] = (parameters) =>
+            {
+                return GetObject<Deelnemer>(parameters, Request.UserHostAddress);
+            };
+            Get["/event/{id}/{token}"] = (parameters) =>
+            {
+                return GetObject<Event>(parameters, Request.UserHostAddress);
+            };
+            Get["/persoon/{id}/{token}"] = (parameters) =>
+            {
+                return GetObject<Persoon>(parameters, Request.UserHostAddress);
+            };
+            Get["/ploeg/{id}/{token}"] = (parameters) =>
+            {
+                return GetObject<Ploeg>(parameters, Request.UserHostAddress);
+            };
+            Get["/veld/{id}/{token}"] = (parameters) =>
+            {
+                return GetObject<Veld>(parameters, Request.UserHostAddress);
+            };
+            Get["/vereniging/{id}/{token}"] = (parameters) =>
+            {
+                return GetObject<Vereniging>(parameters, Request.UserHostAddress);
+            };
+
+            /* GET ALL */
+            Get["/event/all/user/{token}"] = (parameters) =>
+            {
+                return GetEventsByLoginId(parameters, Request.UserHostAddress);
+            };
+            Get["/blok/all/event/{id}/{token}"] = (parameters) =>
+            {
+                return GetBlokkenByEventId(parameters, Request.UserHostAddress);
+            };
+            Get["/veld/all/blok/{id}/{token}"] = (parameters) =>
+            {
+                return GetVeldenByBlokId(parameters, Request.UserHostAddress);
+            };
+            Get["/ploeg/all/veld/{id}/{token}"] = (parameters) =>
+            {
+                return GetPloegenByVeldId(parameters, Request.UserHostAddress);
+            };
+            Get["/ploeg/all/vereniging/{id}/{token}"] = (parameters) =>
+            {
+                return GetPloegenByVerenigingId(parameters, Request.UserHostAddress);
+            };
+            Get["/deelnemer/all/ploeg/{id}/{token}"] = (parameters) =>
+            {
+                return GetDeelnemersByPloegId(parameters, Request.UserHostAddress);
+            };
+            Get["/persoon/all/deelnemer/{id}/{token}"] = (parameters) =>
+            {
+                return GetPersoonByDeelnemerId(parameters, Request.UserHostAddress);
+            };
+            Get["/persoon/all/vereniging/{id}/{token}"] = (parameters) =>
+            {
+                return GetPersoonByVerenigingId(parameters, Request.UserHostAddress);
+            };
+            Get["/tijd/all/ploeg/{id}/{token}"] = (parameters) =>
+            {
+                return GetTijdByPloegId(parameters, Request.UserHostAddress);
+            };
+            Get["/tijd/all/blok/{id}/{token}"] = (parameters) =>
+            {
+                return GetTijdByBlokId(parameters, Request.UserHostAddress);
+            };
+            Get["/tijd/all/ploeg/blok/{ploegid}/{blokid}/{token}"] = (parameters) =>
+            {
+                return GetTijdByPloegIdBlokId(parameters, Request.UserHostAddress);
+            };
+
+            /* DELETE */
+            Delete["/blok/{id}/{token}"] = (parameters) =>
+            {
+                return DeleteObject<Blok>(parameters, Request.UserHostAddress);
+            };
+            Delete["/deelnemer/{id}/{token}"] = (parameters) =>
+            {
+                return DeleteObject<Deelnemer>(parameters, Request.UserHostAddress);
+            };
+            Delete["/event/{id}/{token}"] = (parameters) =>
+            {
+                return DeleteObject<Event>(parameters, Request.UserHostAddress);
+            };
+            Delete["/persoon/{id}/{token}"] = (parameters) =>
+            {
+                return DeleteObject<Persoon>(parameters, Request.UserHostAddress);
+            };
+            Delete["/ploeg/{id}/{token}"] = (parameters) =>
+            {
+                return DeleteObject<Ploeg>(parameters, Request.UserHostAddress);
+            };
+            Delete["/veld/{id}/{token}"] = (parameters) =>
+            {
+                return DeleteObject<Veld>(parameters, Request.UserHostAddress);
+            };
+            Delete["/vereniging/{id}/{token}"] = (parameters) =>
+            {
+                return DeleteObject<Vereniging>(parameters, Request.UserHostAddress);
+            };
         }
-
-        private static dynamic SaveTeam(dynamic formdata)
+        
+        private static string ValidateToken(string token, string ipaddress, out Login login)
         {
-            string teamname = null;
-            string teamnumber = null;
-            string teamid = Guid.NewGuid().ToString();
-            if (formdata != null)
+            // validate the token
+            bool tokenValid = true;
+            if (string.IsNullOrWhiteSpace(token))
             {
-                teamname = formdata["teamname"];
-                teamnumber = formdata["teamnumber"];
+                tokenValid = false;
             }
-
-            // register
-            bool success = true;
-            string errormessage = "Ok";
-            string errorfield = "";
-            if (string.IsNullOrWhiteSpace(teamname))
+            Guid tokenGuid;
+            if(!Guid.TryParse(token, out tokenGuid))
             {
-                success = false;
-                errormessage = "TeamName is empty!";
-                errorfield = "TEAMNAME";
+                tokenValid = false;
             }
-            else if (string.IsNullOrWhiteSpace(teamnumber))
+            if (tokenGuid != null && tokenGuid != Guid.Empty)
             {
-                success = false;
-                errormessage = "TeamNumber is empty!";
-                errorfield = "TEAMNUMBER";
+                login = DataAccess.DataAccess.ValidateToken(tokenGuid, ipaddress);
             }
             else
             {
-                try
-                {
-                    DataAccess.DataAccess.AddTeam(teamid, teamname, Convert.ToInt32(teamnumber));
-                }
-                catch
-                {
-                    success = false;
-                    errormessage = "TeamNumber is invalid!";
-                    errorfield = "TEAMNUMBER";
-                }
+                login = null;
+            }
+            if(login == null)
+            {
+                tokenValid = false;
             }
 
-            // return result
-            Result result = new Result();
-            result.Success = success;
-            result.Message = errormessage;
-            result.Data = success ? teamid : "";
-            result.Field = errorfield;
-            return JsonConvert.SerializeObject(result);
+            if (!tokenValid)
+            {
+                return GenerateResult(false, "Token is invalid!", "", "TOKEN");
+            }
+            return null;
         }
 
-        private static dynamic GetTeams()
+        private static string ValidateId(string idstring, out int id)
         {
-            Result result = new Result();
-            result.Success = true;
-            result.Message = "Ok";
-            result.Data = JsonConvert.SerializeObject(DataAccess.DataAccess.GetAllTeam());
-            return JsonConvert.SerializeObject(result);
+            // validate the id
+            bool idvalid = true;
+            if (string.IsNullOrWhiteSpace(idstring))
+            {
+                idvalid = false;
+            }
+
+            if (!int.TryParse(idstring, out id))
+            {
+                idvalid = false;
+                id = 0;
+            }
+
+            if (!idvalid)
+            {
+                return GenerateResult(false, "Id is invalid!", "", "ID");
+            }
+            return null;
         }
 
-        private static dynamic Register(dynamic formdata)
+        private static DateTime ValidateDate(ref bool success, ref string errormessage, ref string errorfield, string ticks, string errmessage, string errfield)
         {
-            string username = null;
-            string password = null;
-            string email = null;
-            if (formdata != null)
+            try
             {
-                username = formdata["username"];
-                password = formdata["password"];
-                email = formdata["email"];
+                return new DateTime(long.Parse(ticks));
             }
-
-            // register
-            bool success = true;
-            string errormessage = "Ok";
-            string errorfield = "";
-            if (string.IsNullOrWhiteSpace(username))
+            catch
             {
                 success = false;
-                errormessage = "Username is empty!";
-                errorfield = "USERNAME";
+                errormessage = errmessage;
+                errorfield = errfield;
+                return DateTime.MinValue;
             }
-            else if (string.IsNullOrWhiteSpace(password))
-            {
-                success = false;
-                errormessage = "Password is empty!";
-                errorfield = "PASSWORD";
-            }
-            else
-            {
-                if (DataAccess.DataAccess.UsernameExist(username))
-                {
-                    success = false;
-                    errormessage = "Username already exists!";
-                    errorfield = "USERNAME";
-                }
-                else
-                {
-                    DataAccess.DataAccess.Register(username, password, email);
-                }
-            }
-
-            // return result
-            Result result = new Result();
-            result.Success = success;
-            result.Message = errormessage;
-            result.Data = result.Success ? DataAccess.DataAccess.GenerateToken(username) : "";
-            result.Field = errorfield;
-            return JsonConvert.SerializeObject(result);
         }
 
-        private static dynamic Login(dynamic formdata)
+        private static string GenerateResult(bool success, string error, string data, string errorfield)
         {
-            string username = null;
-            string password = null;
-            if (formdata != null)
-            {
-                username = formdata["username"];
-                password = formdata["password"]; ;
-            }
-
-            // login
-            bool success = true;
-            string errormessage = "Ok";
-            string errorfield = "";
-            if (DataAccess.DataAccess.Login(username, password) == null)
-            {
-                success = false;
-                errormessage = "Invalid credentials!";
-                errorfield = "USERNAME|PASSWORD";
-            }
-
-            // return result
             Result result = new Result();
             result.Success = success;
-            result.Message = errormessage;
-            result.Data = result.Success ? DataAccess.DataAccess.GenerateToken(username) : "";
-            result.Field = errorfield;
-            return JsonConvert.SerializeObject(result);
-        }
-
-        private static dynamic SaveTime(dynamic formdata)
-        {
-            string time = null;
-            string team = null;
-            if (formdata != null)
-            {
-                time = formdata["time"];
-                team = formdata["team"];
-            }
-
-            // save the time
-            bool success = true;
-            string errormessage = "Ok";
-            string errorfield = "";
-            if (string.IsNullOrWhiteSpace(team))
-            {
-                success = false;
-                errormessage = "Team is empty!";
-                errorfield = "TEAM";
-            }
-            else if (string.IsNullOrWhiteSpace(time))
-            {
-                success = false;
-                errormessage = "Time is empty!";
-                errorfield = "TIME";
-            }
-            else
-            {
-                try
-                {
-                    DateTime datetime = new DateTime(long.Parse(time));
-                    DataAccess.DataAccess.AddTime(team, datetime);
-                }
-                catch
-                {
-                    success = false;
-                    errormessage = "Time is invalid!";
-                    errorfield = "TIME";
-                }
-            }
-
-            // return result
-            Result result = new Result();
-            result.Success = success;
-            result.Message = errormessage;
-            result.Data = "";
-            result.Field = errorfield;
+            result.Message = error;
+            result.Data = data;
+            result.ErrorField = errorfield;
             return JsonConvert.SerializeObject(result);
         }
     }

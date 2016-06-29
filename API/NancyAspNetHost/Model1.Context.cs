@@ -25,8 +25,16 @@ namespace NancyAspNetHost
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Blok> Blok { get; set; }
+        public virtual DbSet<Deelnemer> Deelnemer { get; set; }
+        public virtual DbSet<Event> Event { get; set; }
         public virtual DbSet<Login> Login { get; set; }
-        public virtual DbSet<Time> Time { get; set; }
-        public virtual DbSet<Team> Team { get; set; }
+        public virtual DbSet<Persoon> Persoon { get; set; }
+        public virtual DbSet<Ploeg> Ploeg { get; set; }
+        public virtual DbSet<PloegDeelnemer> PloegDeelnemer { get; set; }
+        public virtual DbSet<Tijd> Tijd { get; set; }
+        public virtual DbSet<Veld> Veld { get; set; }
+        public virtual DbSet<Vereniging> Vereniging { get; set; }
+        public virtual DbSet<LoginToken> LoginToken { get; set; }
     }
 }

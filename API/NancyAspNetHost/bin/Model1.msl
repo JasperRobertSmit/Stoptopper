@@ -1,31 +1,121 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="TimechasersModelStoreContainer" CdmEntityContainer="TimechasersEntities">
+    <EntitySetMapping Name="Blok">
+      <EntityTypeMapping TypeName="TimechasersModel.Blok">
+        <MappingFragment StoreEntitySet="Blok">
+          <ScalarProperty Name="Complete" ColumnName="Complete" />
+          <ScalarProperty Name="EindTijd" ColumnName="EindTijd" />
+          <ScalarProperty Name="StartTijd" ColumnName="StartTijd" />
+          <ScalarProperty Name="Nummer" ColumnName="Nummer" />
+          <ScalarProperty Name="EvenementID" ColumnName="EvenementID" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Deelnemer">
+      <EntityTypeMapping TypeName="TimechasersModel.Deelnemer">
+        <MappingFragment StoreEntitySet="Deelnemer">
+          <ScalarProperty Name="Nummer" ColumnName="Nummer" />
+          <ScalarProperty Name="PersoonID" ColumnName="PersoonID" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Event">
+      <EntityTypeMapping TypeName="TimechasersModel.Event">
+        <MappingFragment StoreEntitySet="Event">
+          <ScalarProperty Name="LoginID" ColumnName="LoginID" />
+          <ScalarProperty Name="Plaats" ColumnName="Plaats" />
+          <ScalarProperty Name="Afstand" ColumnName="Afstand" />
+          <ScalarProperty Name="EindDatum" ColumnName="EindDatum" />
+          <ScalarProperty Name="StartDatum" ColumnName="StartDatum" />
+          <ScalarProperty Name="OrganisatorID" ColumnName="OrganisatorID" />
+          <ScalarProperty Name="Naam" ColumnName="Naam" />
+          <ScalarProperty Name="Afkorting" ColumnName="Afkorting" />
+          <ScalarProperty Name="EventGuid" ColumnName="EventGuid" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Login">
       <EntityTypeMapping TypeName="TimechasersModel.Login">
         <MappingFragment StoreEntitySet="Login">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="Username" ColumnName="Username" />
-          <ScalarProperty Name="Password" ColumnName="Password" />
           <ScalarProperty Name="Email" ColumnName="Email" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Time">
-      <EntityTypeMapping TypeName="TimechasersModel.Time">
-        <MappingFragment StoreEntitySet="Time">
-          <ScalarProperty Name="Time1" ColumnName="Time" />
-          <ScalarProperty Name="Team" ColumnName="Team" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Team">
-      <EntityTypeMapping TypeName="TimechasersModel.Team">
-        <MappingFragment StoreEntitySet="Team">
-          <ScalarProperty Name="TeamNumber" ColumnName="TeamNumber" />
-          <ScalarProperty Name="TeamName" ColumnName="TeamName" />
-          <ScalarProperty Name="TeamId" ColumnName="TeamId" />
+    <EntitySetMapping Name="Persoon">
+      <EntityTypeMapping TypeName="TimechasersModel.Persoon">
+        <MappingFragment StoreEntitySet="Persoon">
+          <ScalarProperty Name="KNRBID" ColumnName="KNRBID" />
+          <ScalarProperty Name="GeboorteDatum" ColumnName="GeboorteDatum" />
+          <ScalarProperty Name="VerenigingID" ColumnName="VerenigingID" />
+          <ScalarProperty Name="Naam" ColumnName="Naam" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Ploeg">
+      <EntityTypeMapping TypeName="TimechasersModel.Ploeg">
+        <MappingFragment StoreEntitySet="Ploeg">
+          <ScalarProperty Name="Bootnaam" ColumnName="Bootnaam" />
+          <ScalarProperty Name="VeldID" ColumnName="VeldID" />
+          <ScalarProperty Name="VerenigingID" ColumnName="VerenigingID" />
+          <ScalarProperty Name="Naam" ColumnName="Naam" />
+          <ScalarProperty Name="Rugnummer" ColumnName="Rugnummer" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PloegDeelnemer">
+      <EntityTypeMapping TypeName="TimechasersModel.PloegDeelnemer">
+        <MappingFragment StoreEntitySet="PloegDeelnemer">
+          <ScalarProperty Name="PloegID" ColumnName="PloegID" />
+          <ScalarProperty Name="DeelnemerID" ColumnName="DeelnemerID" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tijd">
+      <EntityTypeMapping TypeName="TimechasersModel.Tijd">
+        <MappingFragment StoreEntitySet="Tijd">
+          <ScalarProperty Name="Tijd1" ColumnName="Tijd" />
+          <ScalarProperty Name="BlokID" ColumnName="BlokID" />
+          <ScalarProperty Name="PloegID" ColumnName="PloegID" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Veld">
+      <EntityTypeMapping TypeName="TimechasersModel.Veld">
+        <MappingFragment StoreEntitySet="Veld">
+          <ScalarProperty Name="BlokID" ColumnName="BlokID" />
+          <ScalarProperty Name="ANaam" ColumnName="ANaam" />
+          <ScalarProperty Name="Afkorting" ColumnName="Afkorting" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Vereniging">
+      <EntityTypeMapping TypeName="TimechasersModel.Vereniging">
+        <MappingFragment StoreEntitySet="Vereniging">
+          <ScalarProperty Name="Naam" ColumnName="Naam" />
+          <ScalarProperty Name="Afkorting" ColumnName="Afkorting" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LoginToken">
+      <EntityTypeMapping TypeName="TimechasersModel.LoginToken">
+        <MappingFragment StoreEntitySet="LoginToken">
+          <ScalarProperty Name="IPAdress" ColumnName="IPAdress" />
+          <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+          <ScalarProperty Name="LoginID" ColumnName="LoginID" />
+          <ScalarProperty Name="Token" ColumnName="Token" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>

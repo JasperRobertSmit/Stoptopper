@@ -5,17 +5,20 @@ namespace NancyAspNetHost.DataAccess
 {
     public partial class DataAccess
     {
-        public static string GenerateToken(string username)
-        {
-            return Guid.NewGuid().ToString();
-        }
-
         public static bool UsernameExist(string username)
         {
             using (TimechasersEntities te = new TimechasersEntities())
             {
                 Login login = te.Login.Where(t => t.Username == username).FirstOrDefault();
                 return !(login == null || string.IsNullOrWhiteSpace(login.Username));
+            }
+        }
+
+        public static Login GetLoginById(int id)
+        {
+            using (TimechasersEntities te = new TimechasersEntities())
+            {
+                return te.Login.Where(t => t.Id == id).FirstOrDefault();
             }
         }
 
@@ -31,17 +34,18 @@ namespace NancyAspNetHost.DataAccess
             }
         }
 
-        public static bool Register(string username, string password, string email)
+        public static Login Register(string username, string password, string email)
         {
             using (TimechasersEntities te = new TimechasersEntities())
             {
-                te.Login.Add(new Login()
+                Login login = te.Login.Add(new Login()
                 {
                     Username = username,
                     Password = password,
                     Email = email != null ? email : null
                 });
-                return te.SaveChanges() > 0;
+                te.SaveChanges();
+                return login;
             }
         }
     }
