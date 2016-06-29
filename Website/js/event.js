@@ -12,20 +12,12 @@ function getRandomInt(min, max) {
 
 /** TABLE UPDATE LOGIC*/
 
-function changeFullTable(content){
-  $("#dataTable").html(content);
-}
-function changeTableHead(content){
-  $("#tableHead").html(content);
-}
-function changeTableBody(content){
-  $("#tableBody").html(content);
+function changeBody(content){
+  $("#event").html(content);
 }
 
-function createSpinnerRow(){
-  return "<tr>"+
-    "<td>"+
-      '<div class="preloader-wrapper small active">'+
+function createSpinner(){
+  return '<div class="preloader-wrapper small active">'+
         '<div class="spinner-layer spinner-green-only">'+
           '<div class="circle-clipper left">'+
           '  <div class="circle"></div>'+
@@ -35,97 +27,68 @@ function createSpinnerRow(){
             '<div class="circle"></div>'+
           '</div>'+
         '</div>'+
-      '</div>'+
-    '</td>'+
-  '</tr>'
+      '</div>'
 }
 
 
 /**EVENT LIST DISPLAY LOGIC*/
 
-function createEventHeader(){
-  return "<tr>"+
-    "<th>Afkorting</th>"+
-    "<th>Naam</th>"+
-    "<th>Organisator</th>"+
-    "<th>Startdatum<th>"+
-  "<tr>"
+function createEventHeader(event){
+  return "<h1>"+event.Naam+"</h1>"
 }
 
 function createEventActions(event){
-  $("#details").click(function(){
-    updateModalBody(createViewEventModalBody(event))
-    updateModalFooter(createSaveButton())
-  });
-    return '<a class="waves-effect waves-light btn" id="details" href="event.html?id='+event.id+'">view</a>'
+  return '<a class="waves-effect waves-light btn" id="details" href="event.html?type=EDIT&id='+event.Id+'">edit</a>'+
+  '<a class="waves-effect waves-light btn red" id="details" href="event.html?type=DELETE&id='+event.Id+'">delete</a>'
 }
 
-function createEventRow(event){
-    return "<tr> "+
-      "<td>"+event.afkorting+"</td>"+
-      "<td>"+event.naam+"</td>"+
-      "<td>"+event.organisator.naam+"</td>"+
-      "<td>"+event.startdatum+"</td>"+
-      "<td>"+ createEventActions(event)+ "</td>"
-      "</tr>"
+function createEventHTML(event){
+    return "<div> <b>Afkorting:</b> "+event.Afkorting+"</div>"+
+      "<div> <b>Organisator:</b> "+event.OrganisatorID+"</div>"+
+      "<div> <b>Startdatum:</b> "+event.StartDatum.split('T')[0]+"</div>"+
+      "<div>"+createEventActions(event)+"</div>"
 }
 
-function showEventList(){
-  var events = endpoint.fetchEvents();
-  var eventsHtml = events.map(createEventRow);
-  changeTableHead(createEventHeader());
-  changeTableBody(eventsHtml);
-  $('.modal-trigger').leanModal();
+function showEvent(event){
+  changeBody(createEventHeader(event)+
+  createEventHTML(event));
 }
-
-/** EVENT DISPLAY LOGIC */
 
 /** ENDPOINT CREATION */
 
 function createEndpoint(baseUrl){
-  var post = function(uri, data, handler){
-    $.post(baseUrl+uri, data , handler);
-  }
   var get = function(uri, handler){
-    $.get(baseUrl+uri, {}, handler);
+    $.get(baseUrl+uri, {}, function(data){
+      handler(JSON.parse(data.Data));
+    }, 'json');
+  }
+  var post = function(uri, data, handler){
+    $.post(baseUrl+uri, data, function(data){
+      handler(JSON.parse(data.Data));
+    }, 'json');
+  }
+  var remove = function(uri, data, handler){
+    $.ajax({
+      url: baseUrl+uri,
+      type: 'DELETE',
+      dataType: 'json',
+      success: function(data){
+        handler(JSON.parse(data.Data))
+      }
+    });
   }
   return {
-    fetchEvents: function(){
-      return [
-        {
-          id:1,
-          afkorting: "HEAD",
-          naam: "Head of the river Amstel",
-          organisator: {
-            afkorting: "WIL",
-            naam: "Willem III",
-            ploegen:[]
-          },
-          startdatum: "1-1-2020",
-          einddatum: "2-2-2020",
-          afstand: 8000,
-          plaats: "Amstel, Amsterdam",
-          blokken: [{},{},{}]
-        },
-        {
-          id:1
-          afkorting: "HEAD",
-          naam: "Head of the river Amstel",
-          organisator: {
-            afkorting: "WIL",
-            naam: "Willem III",
-            ploegen:[]
-          },
-          startdatum: "1-1-2020",
-          einddatum: "2-2-2020",
-          afstand: 8000,
-          plaats: "Amstel, Amsterdam",
-          blokken: [{},{},{}]
-        }
-      ]
+    fetchEvent: function(id, token, handler){
+      var token = "4004d869-f629-4acd-8360-2475d7270fce"
+      return get("/event/"+id+"/"+token, handler);
     },
-    updateEvent: function(id, newEvent){
-
+    fetchClub: function(id, token, handler){
+      var token = "4004d869-f629-4acd-8360-2475d7270fce";
+      return get("/vereniging/"+id+"/"+token, handler);
+    },
+    deleteEvent: function(id, token, handler){
+      var token = "4004d869-f629-4acd-8360-2475d7270fce";
+      return remove("/event/"+id+"/"+token, handler);
     }
   }
 }
@@ -133,5 +96,16 @@ function createEndpoint(baseUrl){
 /** STARTUP FUNCTION*/
 
 $(document).ready(function(){
-  setTimeout(showEventList, getRandomInt(300,2000));
+  var params = {}
+  location.search.substr(1).split("&").forEach(function(item) {params[item.split("=")[0]] = item.split("=")[1]})
+  console.dir(params);
+  if(params.type==="VIEW"){
+    endpoint.fetchEvent(1, "token", showEvent);
+  }else if(params.type==="DELETE"){
+    endpoint.deleteEvent(1, "token", showEvent);
+  }else if(params.type==="CREATE"){
+    endpoint.fetchEvent(1, "token", showEvent);
+  }else if(params.type==="EDIT"){
+    endpoint.fetchEvent(1, "token", showEvent);
+  }
 })
