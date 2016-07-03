@@ -23,6 +23,14 @@ namespace NancyAspNetHost.DataAccess
             }
         }
 
+        public static Event GetAllEventByGuid(string guid)
+        {
+            using (TimechasersEntities te = new TimechasersEntities())
+            {
+                return te.Event.Where(c => c.EventGuid == guid).FirstOrDefault();
+            }
+        }
+
         public static Event GetEventById(int id)
         {
             using (TimechasersEntities te = new TimechasersEntities())

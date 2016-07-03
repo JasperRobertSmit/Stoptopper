@@ -94,6 +94,10 @@ namespace NancyAspNetHost.Modules
             {
                 return GetEventsByLoginId(parameters, Request.UserHostAddress);
             };
+            Get["/event/all/guid/{guid}/{token}"] = (parameters) =>
+            {
+                return GetEventsByGuid(parameters, Request.UserHostAddress);
+            };
             Get["/blok/all/event/{id}/{token}"] = (parameters) =>
             {
                 return GetBlokkenByEventId(parameters, Request.UserHostAddress);

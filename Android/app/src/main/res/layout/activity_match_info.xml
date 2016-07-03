@@ -1,46 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:isScrollContainer="false"
+    android:weightSum="1">
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="39dp"
-        android:layout_marginTop="30dp"
-        android:text="eventinfo"
-        android:id="@+id/tv_eventinfo"
-        style="@style/Base.TextAppearance.AppCompat.Large"
-        android:background="#ffffff" />
-
-    <!--<TextView-->
-        <!--android:layout_width="fill_parent"-->
-        <!--android:layout_height="39dp"-->
-        <!--android:text="blokinfo"-->
-        <!--android:id="@+id/tv_blokinfo"-->
-        <!--android:layout_below="@+id/tv_eventinfo"-->
-        <!--style="@style/Base.TextAppearance.AppCompat.Large" />-->
-
-    <!--<TextView-->
-        <!--android:layout_width="fill_parent"-->
-        <!--android:layout_height="39dp"-->
-        <!--android:text="veldinfo"-->
-        <!--android:id="@+id/tv_veldinfo"-->
-        <!--android:layout_below="@+id/tv_blokinfo"-->
-        <!--style="@style/Base.TextAppearance.AppCompat.Large" />-->
-
-    <!--<TextView-->
-        <!--android:layout_width="fill_parent"-->
-        <!--android:layout_height="39dp"-->
-        <!--android:text="ploeginfo"-->
-        <!--android:id="@+id/tv_ploeginfo"-->
-        <!--android:layout_below="@+id/tv_veldinfo"-->
-        <!--style="@style/Base.TextAppearance.AppCompat.Large" />-->
+    <ImageView
+        android:id="@+id/background_image_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/background"/>
 
     <ListView
         android:id="@+id/lv_ploegen"
         android:layout_height="wrap_content"
-        android:layout_width="match_parent">
+        android:layout_width="match_parent"
+        android:layout_marginTop="15dp"
+        android:dividerHeight="15dp">
     </ListView>
 
-</LinearLayout>
+</FrameLayout>

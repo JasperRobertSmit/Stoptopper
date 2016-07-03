@@ -5,6 +5,17 @@ namespace NancyAspNetHost.Modules
 {
     public partial class TimeModule
     {
+        private static string GetEventsByGuid(dynamic parameters, string ipaddress)
+        {
+            Login login;
+            string tokenResult = ValidateToken(parameters.token, ipaddress, out login);
+            if (tokenResult != null)
+                return tokenResult;
+
+            // return result
+            return GenerateResult(true, "", JsonConvert.SerializeObject(DataAccess.DataAccess.GetAllEventByGuid(parameters.guid)), "");
+        }
+
         private static string GetEventsByLoginId(dynamic parameters, string ipaddress)
         {
             Login login;
