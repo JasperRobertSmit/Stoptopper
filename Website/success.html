@@ -12,21 +12,85 @@
 
     <!--<link href="css/reset.css" rel="stylesheet">-->
     <link href="css/custom.css" rel="stylesheet">
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+<div class="col-xs-12 rowboatHeader">
+	<img src="rowboatheader.png" style="height:150px; float:left;" />
+	<h1 style="float:left;">Stoptoppers</h1>
+</div>
 <main>
-    <h1>SUCCES!</h1>
-    <input type="text" id="afkorting" placeholder="afkorting">
-    <input type="text" id="afstand" placeholder="afstand">
-    <input type="text" id="naam" placeholder="naam">
-    <input type="text" id="plaats" placeholder="plaats">
-    <input type="text" id="orgid" placeholder="orgid">
 
-    <input type="submit" id="send">
+<div class="col-xs-6">
+<div>
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Evenement</a></li>
+    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Ploegen</a></li>
+    <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Tijden</a></li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="home">
+	<div class="EvenementContainer">
+		<h2>Evenement</h2>
+		<input type="text" id="afkorting" placeholder="afkorting">
+		<input type="text" id="afstand" placeholder="afstand">
+		<input type="text" id="naam" placeholder="naam">
+		<input type="text" id="plaats" placeholder="plaats">
+		<input type="text" id="orgid" placeholder="orgid">
+		<button class="addEventButton btn waves-effect waves-light">Toevoegen</button>
+	</div>
+	</div>
+    <div role="tabpanel" class="tab-pane" id="profile">
+		<div class="PloegenOverzichtContainer">
+		<h2>Ploegen</h2>
+		<table class="PloegenOverzichtTable">
+			<thead>
+			<tr>
+				<th>Bootnaam</th>
+				<th>Rugnummer</th>
+			</tr>
+			</thead>
+			<tbody>
+				
+			</tbody>
+		</table>
+	</div>
+	<div class="PloegContainer">
+		<h2>Ploeg</h2>
+		<input type="text" id="bootnaam" placeholder="bootnaam">
+		<input type="text" id="naam" placeholder="naam">
+		<input type="text" id="rugnummer" placeholder="rugnummer">
+		<button class="addPloegButton btn waves-effect waves-light">Toevoegen</button>
+	</div></div>
+    <div role="tabpanel" class="tab-pane" id="messages">
+		<h2>Tijden</h2>
+				<table class="TijdenOverzichtTable">
+			<thead>
+			<tr>
+				<th>Bootnaam</th>
+				<th>Rugnummer</th>
+				<th>Tijd</th>
+			</tr>
+			</thead>
+			<tbody>
+				
+			</tbody>
+		</table>
+	</div>
+  </div>
+</div>
+</div>
+<div class="col-xs-6 imageContainer">
+</div>
 </main>
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/materialize.min.js"></script>
 <script type="text/javascript" src="js/general.js"></script>
 <script src="js/succes.js"></script>

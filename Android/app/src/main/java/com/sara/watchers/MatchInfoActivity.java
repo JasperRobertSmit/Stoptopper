@@ -78,10 +78,10 @@ public class MatchInfoActivity extends AppCompatActivity {
                 JSONArray dataVeldArray = new JSONArray(dataString);
 
                 for(int i = 0; i < dataVeldArray.length(); i++){
-                    JSONObject dataObject = dataArray.getJSONObject(i);
+                    JSONObject dataObject = dataVeldArray.getJSONObject(i);
                     veldId = dataObject.getInt("Id");
                     veldTitelString += veldId + ";";
-                    veldIds.add(blokId);
+                    veldIds.add(veldId);
                 }
             }
 
